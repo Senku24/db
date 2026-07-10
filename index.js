@@ -1,25 +1,32 @@
 const express = require('express');
 const middleware = require('./middleware');
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
+
+const { userModel, todoModel}= require('./models');
+
 const app = express();
 const port = 3000;
 app.use(express.json());
 
-let userId = 1;
-let todoId = 1;
-let todos = [];
-let users = [];
+// let userId = 1;
+// let todoId = 1;
+// let todos = [];
+// let users = [];
 
 
-app.post('/signup', (req, res) => {
+app.post('/signup', async (req, res) => {
     const { username, password } = req.body;
 
-    const userExists = users.find(user => user.username === username);
+    //const userExists = users.find(user => user.username === username);
+    const userExists = await userModel.findOne({ username: username, password: password });
     if(userExists) {
         return res.status(400).json({ message: 'User already exists' });
     }
-    users.push({ username, password, userId: userId++});
-    res.status(201).json({ message: 'User created successfully' });
+    //users.push({ username, password, userId: userId++});
+    const newUser = new userModel({ username, password });
+    await newUser.save();
+    res.status(201).json({ message: 'User created successfully' , user: newUser._id});
 });
 app.post('/signin', (req, res) => {
     const { username, password } = req.body;
