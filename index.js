@@ -19,7 +19,7 @@ app.post('/signup', async (req, res) => {
     const { username, password } = req.body;
 
     //const userExists = users.find(user => user.username === username);
-    const userExists = await userModel.findOne({ username: username, password: password });
+    const userExists = await userModel.findOne({ username: username});
     if(userExists) {
         return res.status(400).json({ message: 'User already exists' });
     }
@@ -28,39 +28,38 @@ app.post('/signup', async (req, res) => {
     await newUser.save();
     res.status(201).json({ message: 'User created successfully' , user: newUser._id});
 });
-app.post('/signin', (req, res) => {
+app.post('/signin', async (req, res) => {
     const { username, password } = req.body;
-    const user = users.find(user => user.username === username && user.password === password);
+    const user = await userModel.findOne(user => user.username === username && user.password === password);//test pass
     if(!user) {
         return res.status(400).json({ message: 'Invalid credentials' });
     }
-    const token = jwt.sign({ userId: user.userId }, 'nix123');
+    const token = jwt.sign({ userId: user._id }, 'nix123');
     res.json({ "message": "Signin successful", token });
 
 });
-app.post('/todo',middleware, (req, res) => {
+app.post('/todo',middleware, async (req, res) => {
     const userId = req.userId;
     const title = req.body.title;
     const description = req.body.description;
-    const newTodo = { todoId: todoId++, userId, title, description };
-    todos.push(newTodo);
+    const newTodo =await  new todoModel({ userId, title, description });
+    await newTodo.save();
     res.status(201).json({ message: 'Todo created successfully' });
 });
 
-app.get('/todo',middleware, (req, res) => {
+app.get('/todo',middleware, async(req, res) => {
     const userId = req.userId;
-    const userTodos = todos.filter(todo => todo.userId === userId);
+    const userTodos = await todoModel.find({ userId });
     res.json(userTodos);
 });
 
-app.delete('/todo/:id',middleware, (req, res) => {
+app.delete('/todo/:id',middleware, async (req, res) => {
     const userId = req.userId;
     const todoId = parseInt(req.params.id);
-    const todoIndex = todos.findIndex(todo => todo.todoId === todoId && todo.userId === userId);
-    if(todoIndex === -1) {
+    const todo = await todoModel.findOneAndDelete({ _id: todoId, userId });
+    if(!todo) {
         return res.status(404).json({ message: 'Todo not found' });
     }
-    todos.splice(todoIndex, 1);
     res.json({ message: 'Todo deleted successfully' });
 });
 

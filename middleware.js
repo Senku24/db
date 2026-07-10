@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+
+const { userModel, todoModel}= require('./models');
 function middleware(req, res, next) {
     const token = req.headers.token;
     if (!token) {
@@ -6,7 +8,7 @@ function middleware(req, res, next) {
     }
     try {
         const decoded = jwt.verify(token, 'nix123');
-        req.userId = parseInt(decoded.userId);
+        req.userId =decoded.userId;
         next();
     } catch (err) {
         return res.status(401).json({ message: 'Invalid token' });
