@@ -55,7 +55,7 @@ app.get('/todo',middleware, async(req, res) => {
 
 app.delete('/todo/:id',middleware, async (req, res) => {
     const userId = req.userId;
-    const todoId = parseInt(req.params.id);
+    const todoId = req.params.id;
     const todo = await todoModel.findOneAndDelete({ _id: todoId, userId });
     if(!todo) {
         return res.status(404).json({ message: 'Todo not found' });
