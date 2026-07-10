@@ -30,7 +30,7 @@ app.post('/signup', async (req, res) => {
 });
 app.post('/signin', async (req, res) => {
     const { username, password } = req.body;
-    const user = await userModel.findOne(user => user.username === username && user.password === password);//test pass
+    const user = await userModel.findOne({ username, password });//test pass
     if(!user) {
         return res.status(400).json({ message: 'Invalid credentials' });
     }
