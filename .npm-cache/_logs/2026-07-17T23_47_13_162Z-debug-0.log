@@ -1,0 +1,35 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.9.3
+2 info using node@v22.20.0
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/nixonpaul/Code_learn/WebDev26/db/.npmrc
+5 silly config load:file:/Users/nixonpaul/.npmrc
+6 silly config load:file:/Users/nixonpaul/.npm-global/etc/npmrc
+7 verbose title npm init
+8 verbose argv "init" "--yes"
+9 verbose logfile logs-max:10 dir:/Users/nixonpaul/Code_learn/WebDev26/db/.npm-cache/_logs/2026-07-17T23_47_13_162Z-
+10 verbose logfile /Users/nixonpaul/Code_learn/WebDev26/db/.npm-cache/_logs/2026-07-17T23_47_13_162Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly package data {
+12 silly package data   name: 'db',
+12 silly package data   version: '1.0.0',
+12 silly package data   description: '',
+12 silly package data   main: 'index.js',
+12 silly package data   scripts: { test: 'echo "Error: no test specified" && exit 1' },
+12 silly package data   keywords: [],
+12 silly package data   author: '',
+12 silly package data   license: 'ISC',
+12 silly package data   dependencies: { express: '^5.2.1', jsonwebtoken: '^9.0.3', mongoose: '^9.7.4' },
+12 silly package data   devDependencies: {},
+12 silly package data   repository: { type: 'git', url: 'git+https://github.com/Senku24/db.git' },
+12 silly package data   bugs: { url: 'https://github.com/Senku24/db/issues' },
+12 silly package data   homepage: 'https://github.com/Senku24/db#readme',
+12 silly package data   [Symbol(newline)]: '\n',
+12 silly package data   [Symbol(indent)]: '  '
+12 silly package data }
+13 verbose cwd /Users/nixonpaul/Code_learn/WebDev26/db
+14 verbose os Darwin 25.3.0
+15 verbose node v22.20.0
+16 verbose npm  v10.9.3
+17 verbose exit 0
+18 info ok
