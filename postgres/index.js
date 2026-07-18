@@ -4,7 +4,7 @@ const port = 3000;
 const authMiddleware = require('./authMiddleware');
 const { Pool } = require('pg');
 const pool  = new Pool({
-    connectionString: 'postgresql://neondb_owner:npg_1V4FTQKEZULR@ep-flat-firefly-ataekle7-pooler.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require'
+    connectionString: ''
 })
 // pool.connect()
 
