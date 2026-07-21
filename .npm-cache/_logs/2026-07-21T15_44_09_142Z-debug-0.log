@@ -1,0 +1,47 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.9.3
+2 info using node@v22.20.0
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/nixonpaul/Code_learn/WebDev26/db/.npmrc
+5 silly config load:file:/Users/nixonpaul/.npmrc
+6 silly config load:file:/Users/nixonpaul/.npm-global/etc/npmrc
+7 verbose title npm install bycrypt
+8 verbose argv "install" "bycrypt"
+9 verbose logfile logs-max:10 dir:/Users/nixonpaul/Code_learn/WebDev26/db/.npm-cache/_logs/2026-07-21T15_44_09_142Z-
+10 verbose logfile /Users/nixonpaul/Code_learn/WebDev26/db/.npm-cache/_logs/2026-07-21T15_44_09_142Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+13 silly idealTree buildDeps
+14 silly fetch manifest bycrypt@*
+15 silly packumentCache full:https://registry.npmjs.org/bycrypt cache-miss
+16 http fetch GET 404 https://registry.npmjs.org/bycrypt 410ms (cache skip)
+17 silly placeDep ROOT bycrypt@ OK for: db@1.0.0 want: *
+18 verbose stack HttpErrorGeneral: 404 Not Found - GET https://registry.npmjs.org/bycrypt - Not found
+18 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/npm-registry-fetch/lib/check-response.js:103:15
+18 verbose stack     at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+18 verbose stack     at async RegistryFetcher.packument (/usr/local/lib/node_modules/npm/node_modules/pacote/lib/registry.js:90:19)
+18 verbose stack     at async RegistryFetcher.manifest (/usr/local/lib/node_modules/npm/node_modules/pacote/lib/registry.js:128:23)
+18 verbose stack     at async #fetchManifest (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:1202:20)
+18 verbose stack     at async #nodeFromEdge (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:1040:19)
+18 verbose stack     at async #buildDepStep (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:904:11)
+18 verbose stack     at async Arborist.buildIdealTree (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:181:7)
+18 verbose stack     at async Promise.all (index 1)
+18 verbose stack     at async Arborist.reify (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:131:5)
+19 verbose statusCode 404
+20 verbose pkgid bycrypt@*
+21 error code E404
+22 error 404 Not Found - GET https://registry.npmjs.org/bycrypt - Not found
+23 error 404
+24 error 404  'bycrypt@*' is not in this registry.
+25 error 404
+26 error 404 Note that you can also install from a
+27 error 404 tarball, folder, http url, or git url.
+28 silly unfinished npm timer reify 1784648649393
+29 silly unfinished npm timer reify:loadTrees 1784648649395
+30 verbose cwd /Users/nixonpaul/Code_learn/WebDev26/db
+31 verbose os Darwin 25.3.0
+32 verbose node v22.20.0
+33 verbose npm  v10.9.3
+34 verbose exit 1
+35 verbose code 1
+36 error A complete log of this run can be found in: /Users/nixonpaul/Code_learn/WebDev26/db/.npm-cache/_logs/2026-07-21T15_44_09_142Z-debug-0.log

@@ -1,0 +1,168 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.9.3
+2 info using node@v22.20.0
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/nixonpaul/Code_learn/WebDev26/db/.npmrc
+5 silly config load:file:/Users/nixonpaul/.npmrc
+6 silly config load:file:/Users/nixonpaul/.npm-global/etc/npmrc
+7 verbose title npm install bcrypt
+8 verbose argv "install" "bcrypt"
+9 verbose logfile logs-max:10 dir:/Users/nixonpaul/Code_learn/WebDev26/db/.npm-cache/_logs/2026-07-21T15_44_52_770Z-
+10 verbose logfile /Users/nixonpaul/Code_learn/WebDev26/db/.npm-cache/_logs/2026-07-21T15_44_52_770Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+13 silly idealTree buildDeps
+14 silly fetch manifest bcrypt@*
+15 silly packumentCache full:https://registry.npmjs.org/bcrypt cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/bcrypt 96ms (cache miss)
+17 silly packumentCache full:https://registry.npmjs.org/bcrypt set size:undefined disposed:false
+18 silly placeDep ROOT bcrypt@6.0.0 OK for: db@1.0.0 want: *
+19 silly fetch manifest node-addon-api@^8.3.0
+20 silly packumentCache full:https://registry.npmjs.org/node-addon-api cache-miss
+21 silly fetch manifest node-gyp-build@^4.8.4
+22 silly packumentCache full:https://registry.npmjs.org/node-gyp-build cache-miss
+23 http fetch GET 200 https://registry.npmjs.org/node-addon-api 113ms (cache miss)
+24 silly packumentCache full:https://registry.npmjs.org/node-addon-api set size:undefined disposed:false
+25 http fetch GET 200 https://registry.npmjs.org/node-gyp-build 138ms (cache miss)
+26 silly packumentCache full:https://registry.npmjs.org/node-gyp-build set size:undefined disposed:false
+27 silly placeDep ROOT node-addon-api@8.9.0 OK for: bcrypt@6.0.0 want: ^8.3.0
+28 silly placeDep ROOT node-gyp-build@4.8.4 OK for: bcrypt@6.0.0 want: ^4.8.4
+29 silly reify moves {}
+30 silly audit bulk request {
+30 silly audit   '@mongodb-js/saslprep': [ '1.4.12' ],
+30 silly audit   '@standard-schema/spec': [ '1.1.0' ],
+30 silly audit   '@types/webidl-conversions': [ '7.0.3' ],
+30 silly audit   '@types/whatwg-url': [ '13.0.0' ],
+30 silly audit   accepts: [ '2.0.0' ],
+30 silly audit   'body-parser': [ '2.3.0' ],
+30 silly audit   'content-type': [ '2.0.0', '1.0.5' ],
+30 silly audit   bson: [ '7.3.1' ],
+30 silly audit   'buffer-equal-constant-time': [ '1.0.1' ],
+30 silly audit   bytes: [ '3.1.2' ],
+30 silly audit   'call-bind-apply-helpers': [ '1.0.2' ],
+30 silly audit   'call-bound': [ '1.0.4' ],
+30 silly audit   'content-disposition': [ '1.1.0' ],
+30 silly audit   cookie: [ '0.7.2' ],
+30 silly audit   'cookie-signature': [ '1.2.2' ],
+30 silly audit   debug: [ '4.4.3' ],
+30 silly audit   depd: [ '2.0.0' ],
+30 silly audit   'dunder-proto': [ '1.0.1' ],
+30 silly audit   'ecdsa-sig-formatter': [ '1.0.11' ],
+30 silly audit   'ee-first': [ '1.1.1' ],
+30 silly audit   encodeurl: [ '2.0.0' ],
+30 silly audit   'es-define-property': [ '1.0.1' ],
+30 silly audit   'es-errors': [ '1.3.0' ],
+30 silly audit   'es-object-atoms': [ '1.1.2' ],
+30 silly audit   'escape-html': [ '1.0.3' ],
+30 silly audit   etag: [ '1.8.1' ],
+30 silly audit   express: [ '5.2.1' ],
+30 silly audit   finalhandler: [ '2.1.1' ],
+30 silly audit   forwarded: [ '0.2.0' ],
+30 silly audit   fresh: [ '2.0.0' ],
+30 silly audit   'function-bind': [ '1.1.2' ],
+30 silly audit   'get-intrinsic': [ '1.3.0' ],
+30 silly audit   'get-proto': [ '1.0.1' ],
+30 silly audit   gopd: [ '1.2.0' ],
+30 silly audit   'has-symbols': [ '1.1.0' ],
+30 silly audit   hasown: [ '2.0.4' ],
+30 silly audit   'http-errors': [ '2.0.1' ],
+30 silly audit   'iconv-lite': [ '0.7.3' ],
+30 silly audit   inherits: [ '2.0.4' ],
+30 silly audit   'ipaddr.js': [ '1.9.1' ],
+30 silly audit   'is-promise': [ '4.0.0' ],
+30 silly audit   jsonwebtoken: [ '9.0.3' ],
+30 silly audit   jwa: [ '2.0.1' ],
+30 silly audit   jws: [ '4.0.1' ],
+30 silly audit   kareem: [ '3.3.0' ],
+30 silly audit   'lodash.includes': [ '4.3.0' ],
+30 silly audit   'lodash.isboolean': [ '3.0.3' ],
+30 silly audit   'lodash.isinteger': [ '4.0.4' ],
+30 silly audit   'lodash.isnumber': [ '3.0.3' ],
+30 silly audit   'lodash.isplainobject': [ '4.0.6' ],
+30 silly audit   'lodash.isstring': [ '4.0.1' ],
+30 silly audit   'lodash.once': [ '4.1.1' ],
+30 silly audit   'math-intrinsics': [ '1.1.0' ],
+30 silly audit   'media-typer': [ '1.1.0' ],
+30 silly audit   'memory-pager': [ '1.5.0' ],
+30 silly audit   'merge-descriptors': [ '2.0.0' ],
+30 silly audit   'mime-db': [ '1.54.0' ],
+30 silly audit   'mime-types': [ '3.0.2' ],
+30 silly audit   mongodb: [ '7.2.0' ],
+30 silly audit   'mongodb-connection-string-url': [ '7.0.1' ],
+30 silly audit   mongoose: [ '9.7.4' ],
+30 silly audit   mpath: [ '0.9.0' ],
+30 silly audit   mquery: [ '6.0.0' ],
+30 silly audit   ms: [ '2.1.3' ],
+30 silly audit   negotiator: [ '1.0.0' ],
+30 silly audit   'object-inspect': [ '1.13.4' ],
+30 silly audit   'on-finished': [ '2.4.1' ],
+30 silly audit   once: [ '1.4.0' ],
+30 silly audit   parseurl: [ '1.3.3' ],
+30 silly audit   'path-to-regexp': [ '8.4.2' ],
+30 silly audit   pg: [ '8.22.0' ],
+30 silly audit   'pg-cloudflare': [ '1.4.0' ],
+30 silly audit   'pg-connection-string': [ '2.14.0' ],
+30 silly audit   'pg-int8': [ '1.0.1' ],
+30 silly audit   'pg-pool': [ '3.14.0' ],
+30 silly audit   'pg-protocol': [ '1.15.0' ],
+30 silly audit   'pg-types': [ '2.2.0' ],
+30 silly audit   pgpass: [ '1.0.5' ],
+30 silly audit   'postgres-array': [ '2.0.0' ],
+30 silly audit   'postgres-bytea': [ '1.0.1' ],
+30 silly audit   'postgres-date': [ '1.0.7' ],
+30 silly audit   'postgres-interval': [ '1.2.0' ],
+30 silly audit   'proxy-addr': [ '2.0.7' ],
+30 silly audit   punycode: [ '2.3.1' ],
+30 silly audit   qs: [ '6.15.3' ],
+30 silly audit   'range-parser': [ '1.3.0' ],
+30 silly audit   'raw-body': [ '3.0.2' ],
+30 silly audit   router: [ '2.2.0' ],
+30 silly audit   'safe-buffer': [ '5.2.1' ],
+30 silly audit   'safer-buffer': [ '2.1.2' ],
+30 silly audit   semver: [ '7.8.5' ],
+30 silly audit   send: [ '1.2.1' ],
+30 silly audit   'serve-static': [ '2.2.1' ],
+30 silly audit   setprototypeof: [ '1.2.0' ],
+30 silly audit   'side-channel': [ '1.1.1' ],
+30 silly audit   'side-channel-list': [ '1.0.1' ],
+30 silly audit   'side-channel-map': [ '1.0.1' ],
+30 silly audit   'side-channel-weakmap': [ '1.0.2' ],
+30 silly audit   sift: [ '17.1.3' ],
+30 silly audit   'sparse-bitfield': [ '3.0.3' ],
+30 silly audit   split2: [ '4.2.0' ],
+30 silly audit   statuses: [ '2.0.2' ],
+30 silly audit   toidentifier: [ '1.0.1' ],
+30 silly audit   tr46: [ '5.1.1' ],
+30 silly audit   'type-is': [ '2.1.0' ],
+30 silly audit   unpipe: [ '1.0.0' ],
+30 silly audit   vary: [ '1.1.2' ],
+30 silly audit   'webidl-conversions': [ '7.0.0' ],
+30 silly audit   'whatwg-url': [ '14.2.0' ],
+30 silly audit   wrappy: [ '1.0.2' ],
+30 silly audit   xtend: [ '4.0.2' ],
+30 silly audit   bcrypt: [ '6.0.0' ],
+30 silly audit   'node-addon-api': [ '8.9.0' ],
+30 silly audit   'node-gyp-build': [ '4.8.4' ]
+30 silly audit }
+31 http cache node-gyp-build@https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.8.4.tgz 0ms (cache hit)
+32 http cache node-addon-api@https://registry.npmjs.org/node-addon-api/-/node-addon-api-8.9.0.tgz 0ms (cache hit)
+33 http cache bcrypt@https://registry.npmjs.org/bcrypt/-/bcrypt-6.0.0.tgz 0ms (cache hit)
+34 silly tarball no local data for node-gyp-build@https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.8.4.tgz. Extracting by manifest.
+35 silly tarball no local data for node-addon-api@https://registry.npmjs.org/node-addon-api/-/node-addon-api-8.9.0.tgz. Extracting by manifest.
+36 silly tarball no local data for bcrypt@https://registry.npmjs.org/bcrypt/-/bcrypt-6.0.0.tgz. Extracting by manifest.
+37 http fetch GET 200 https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.8.4.tgz 30ms (cache miss)
+38 http fetch GET 200 https://registry.npmjs.org/node-addon-api/-/node-addon-api-8.9.0.tgz 72ms (cache miss)
+39 http fetch GET 200 https://registry.npmjs.org/bcrypt/-/bcrypt-6.0.0.tgz 102ms (cache miss)
+40 info run bcrypt@6.0.0 install node_modules/bcrypt node-gyp-build
+41 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 290ms
+42 silly audit report {}
+43 info run bcrypt@6.0.0 install { code: 0, signal: null }
+44 silly ADD node_modules/node-gyp-build
+45 silly ADD node_modules/node-addon-api
+46 silly ADD node_modules/bcrypt
+47 verbose cwd /Users/nixonpaul/Code_learn/WebDev26/db
+48 verbose os Darwin 25.3.0
+49 verbose node v22.20.0
+50 verbose npm  v10.9.3
+51 verbose exit 0
+52 info ok
