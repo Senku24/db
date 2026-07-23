@@ -8,9 +8,10 @@ const authMiddleware = (req, res, next) => {
     if(!decoded){
         return res.status(401).json({ message: 'invalid user'});
     }
-    next();
+    
     const userId = decoded.userId;
     req.userId = userId;
+    next();
 }
 
 module.exports = authMiddleware;

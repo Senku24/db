@@ -6,16 +6,17 @@ const app = express();
 const bcrypt = require('bcrypt');
 const z = require('zod');
 const authMiddleware = require('./authMiddleware');
-const port = process.env.PORT;
 
 env.config();
+const port = process.env.PORT;
+
 app.use(express.json());
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL
 });
 
-pool.connect();
+//pool.connect();
 
 const signupSchema = z.object({
     username: z.string().min(3).max(20),
@@ -24,6 +25,10 @@ const signupSchema = z.object({
 const loginSchema = z.object({
     username: z.string().min(3).max(20),
     password: z.string().min(6).max(20)
+});
+const transferSchema = z.object({
+    accId: z.number().int().positive(),
+    amount: z.number().positive()
 });
 
 // create endpoints
@@ -59,33 +64,123 @@ app.post('/login', async (req, res) => {
     if(userExists.rows.length === 0) {
         return res.status(403).json({ message: 'Invalid credentials' });
     }
-    const isPasswordValid = await bcrypt.compare(password, userExists.password);
+    const isPasswordValid = await bcrypt.compare(password, userExists.rows[0].password);
     if(!isPasswordValid) {
         return res.status(403).json({ message: 'Invalid credentials' });
     }
-    const token = jwt.sign({userId: userExists.id}, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({userId: userExists.rows[0].id}, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ message: 'Login successful', token });
 });
-app.post('/transfer', authMiddleware, async (req, res) => {
+app.post("/transfer", authMiddleware, async (req, res) => {
+    const { success, data, error } = transferSchema.safeParse(req.body);
+
+    if (!success) {
+        return res.status(400).json({
+            message: "Invalid input",
+            errors: error.issues
+        });
+    }
+
+    const { accId, amount } = data;
     const userId = req.userId;
-    const accId = req.body.accId;
-    const amount = req.body.amount;
 
-    const accountExists = await pool.query('SELECT * FROM account WHERE id = $1', [accId]);
-    if(accountExists.rows.length === 0) {
-        return res.status(404).json({ message: 'Account not found' });
-    }
-    const senderAccount = await pool.query('SELECT * FROM account WHERE userId = $1', [userId]);
-    if(senderAccount.rows.length === 0) {
-        return res.status(404).json({ message: 'Sender account not found' });
-    }
-    if(senderAccount.rows[0].balance < amount) {
-        return res.status(400).json({ message: 'Insufficient balance' });
-    }
-    const updateSenderBalance = await pool.query('UPDATE account SET balance = balance - $1 WHERE userId = $2', [amount, userId]);
-    const updateReceiverBalance = await pool.query('UPDATE account SET balance = balance + $1 WHERE id = $2', [amount, accId]);
+    const client = await pool.connect();
 
-    res.json({ message: 'Transfer successful' });
+    try {
+        await client.query("BEGIN");
+
+        // Lock sender account
+        const senderResult = await client.query(
+            `SELECT id, balance
+             FROM accounts
+             WHERE user_id = $1
+             FOR UPDATE`,
+            [userId]
+        );
+
+        if (senderResult.rows.length === 0) {
+            await client.query("ROLLBACK");
+            return res.status(404).json({
+                message: "Sender account not found"
+            });
+        }
+
+        const sender = senderResult.rows[0];
+
+        // Prevent self-transfer
+        if (sender.id === accId) {
+            await client.query("ROLLBACK");
+            return res.status(400).json({
+                message: "Cannot transfer money to yourself"
+            });
+        }
+
+        // Lock receiver account
+        const receiverResult = await client.query(
+            `SELECT id
+             FROM accounts
+             WHERE id = $1
+             FOR UPDATE`,
+            [accId]
+        );
+
+        if (receiverResult.rows.length === 0) {
+            await client.query("ROLLBACK");
+            return res.status(404).json({
+                message: "Receiver account not found"
+            });
+        }
+
+        // Check balance
+        if (sender.balance < amount) {
+            await client.query("ROLLBACK");
+            return res.status(400).json({
+                message: "Insufficient balance"
+            });
+        }
+
+        // Deduct from sender
+        await client.query(
+            `UPDATE accounts
+             SET balance = balance - $1
+             WHERE id = $2`,
+            [amount, sender.id]
+        );
+
+        // Credit receiver
+        await client.query(
+            `UPDATE accounts
+             SET balance = balance + $1
+             WHERE id = $2`,
+            [amount, accId]
+        );
+
+        // Fetch updated sender balance
+        const updatedBalance = await client.query(
+            `SELECT balance
+             FROM accounts
+             WHERE id = $1`,
+            [sender.id]
+        );
+
+        await client.query("COMMIT");
+
+        return res.status(200).json({
+            message: "Transfer successful",
+            transferredAmount: amount,
+            remainingBalance: updatedBalance.rows[0].balance
+        });
+
+    } catch (err) {
+        await client.query("ROLLBACK");
+        console.error(err);
+
+        return res.status(500).json({
+            message: "Internal server error"
+        });
+    } finally {
+        client.release();
+    }
 });
 
 // read endpoints
