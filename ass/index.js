@@ -46,7 +46,7 @@ app.post('/signup', async (req, res) => {
         return res.status(403).json({ message: 'User already exists' });
     }
     const user = await pool.query('INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id', [username, hashedPassword]);
-
+    const acc = await pool.query('INSERT INTO account (userid, balance) VALUES ($1, $2)', [user.rows[0].id, 0]);
     res.json ({
         message: 'User registered successfully',
         userid : user.rows[0].id
