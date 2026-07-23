@@ -27,8 +27,8 @@ const loginSchema = z.object({
     password: z.string().min(6).max(20)
 });
 const transferSchema = z.object({
-    accId: z.number().int().positive(),
-    amount: z.number().positive()
+    accId: z.coerce.number().int().positive(),
+    amount: z.coerce.number().positive()
 });
 
 // create endpoints
@@ -49,7 +49,7 @@ app.post('/signup', async (req, res) => {
 
     res.json ({
         message: 'User registered successfully',
-        userId : user.rows[0].id
+        userid : user.rows[0].id
     });
 });
 app.post('/login', async (req, res) => {
@@ -68,7 +68,7 @@ app.post('/login', async (req, res) => {
     if(!isPasswordValid) {
         return res.status(403).json({ message: 'Invalid credentials' });
     }
-    const token = jwt.sign({userId: userExists.rows[0].id}, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({userid: userExists.rows[0].id}, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ message: 'Login successful', token });
 });
 app.post("/transfer", authMiddleware, async (req, res) => {
@@ -82,7 +82,7 @@ app.post("/transfer", authMiddleware, async (req, res) => {
     }
 
     const { accId, amount } = data;
-    const userId = req.userId;
+    const userid = req.userid;
 
     const client = await pool.connect();
 
@@ -92,10 +92,10 @@ app.post("/transfer", authMiddleware, async (req, res) => {
         // Lock sender account
         const senderResult = await client.query(
             `SELECT id, balance
-             FROM accounts
-             WHERE user_id = $1
+             FROM account
+             WHERE userid = $1
              FOR UPDATE`,
-            [userId]
+            [userid]
         );
 
         if (senderResult.rows.length === 0) {
@@ -118,7 +118,7 @@ app.post("/transfer", authMiddleware, async (req, res) => {
         // Lock receiver account
         const receiverResult = await client.query(
             `SELECT id
-             FROM accounts
+             FROM account
              WHERE id = $1
              FOR UPDATE`,
             [accId]
@@ -141,7 +141,7 @@ app.post("/transfer", authMiddleware, async (req, res) => {
 
         // Deduct from sender
         await client.query(
-            `UPDATE accounts
+            `UPDATE account
              SET balance = balance - $1
              WHERE id = $2`,
             [amount, sender.id]
@@ -149,7 +149,7 @@ app.post("/transfer", authMiddleware, async (req, res) => {
 
         // Credit receiver
         await client.query(
-            `UPDATE accounts
+            `UPDATE account
              SET balance = balance + $1
              WHERE id = $2`,
             [amount, accId]
@@ -158,7 +158,7 @@ app.post("/transfer", authMiddleware, async (req, res) => {
         // Fetch updated sender balance
         const updatedBalance = await client.query(
             `SELECT balance
-             FROM accounts
+             FROM account
              WHERE id = $1`,
             [sender.id]
         );
@@ -185,16 +185,16 @@ app.post("/transfer", authMiddleware, async (req, res) => {
 
 // read endpoints
 app.get('/view-balance', authMiddleware, async (req, res) => {
-    const userId = req.userId;
-    const balance = await pool.query('SELECT balance FROM account WHERE userId = $1', [userId]);
+    const userid = req.userid;
+    const balance = await pool.query('SELECT balance FROM account WHERE userid = $1', [userid]);
     if(balance.rows.length === 0) {
         return res.status(404).json({ message: 'User not found' });
     }
     res.json({ balance: balance.rows[0].balance });
 });
 app.get('/view-user', authMiddleware, async (req, res) => {
-    const userId = req.userId;
-    const username = await pool.query('SELECT username FROM users WHERE id = $1', [userId]);
+    const userid = req.userid;
+    const username = await pool.query('SELECT username FROM users WHERE id = $1', [userid]);
     res.json({ username: username.rows[0].username });
 });
 app.get('/view-all-users', authMiddleware, async (req, res) => {
